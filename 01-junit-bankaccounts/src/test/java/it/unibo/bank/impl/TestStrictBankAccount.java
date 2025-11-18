@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static it.unibo.bank.impl.SimpleBankAccount.MANAGEMENT_FEE;
 import static it.unibo.bank.impl.StrictBankAccount.TRANSACTION_FEE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test class for the {@link StrictBankAccount} class.
@@ -59,7 +58,14 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-        fail("To be implemented");
+        double testAmount = 100;
+        try{
+            bankAccount.withdraw(mRossi.getUserID(), testAmount);
+            fail ("Soldi gratis?");
+        }catch(IllegalArgumentException exception){
+            assertFalse(false);
+        }
+
     }
 
     /**
