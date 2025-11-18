@@ -5,6 +5,7 @@ import it.unibo.bank.api.BankAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -18,18 +19,24 @@ class TestStrictBankAccount {
 
     /**
      * Prepare the tests.
+     * PASS
      */
     @BeforeEach
     public void setUp() {
-        fail("To be implemented");
+        this.mRossi = new AccountHolder("Mario", "Rossi", 1);
+        this.bankAccount = new StrictBankAccount(mRossi, 0.0);
+
     }
 
     /**
      * Test the initial state of the StrictBankAccount.
+     * PASS
      */
     @Test
     public void testInitialization() {
-        fail("To be implemented");
+        assertEquals(0.0, bankAccount.getBalance());
+        assertEquals(mRossi, bankAccount.getAccountHolder());
+
     }
 
     /**
@@ -37,7 +44,10 @@ class TestStrictBankAccount {
      */
     @Test
     public void testManagementFees() {
-        fail("To be implemented");
+        bankAccount.deposit(mRossi.getUserID(), 100);
+        bankAccount.chargeManagementFees(mRossi.getUserID());
+        double testExpected = 100 - (5+(1*0.1));
+        assertEquals(testExpected,bankAccount.getBalance());
     }
 
     /**
