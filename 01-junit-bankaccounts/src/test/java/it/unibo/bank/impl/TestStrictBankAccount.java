@@ -58,12 +58,13 @@ class TestStrictBankAccount {
      */
     @Test
     public void testNegativeWithdraw() {
-        double testAmount = 100;
+        double testInitialBalance = bankAccount.getBalance();
+        double testAmount = -100;
         try{
             bankAccount.withdraw(mRossi.getUserID(), testAmount);
-            fail ("Soldi gratis?");
+            fail ("Error: Negative value accepted");
         }catch(IllegalArgumentException exception){
-            assertFalse(false);
+            assertEquals(testInitialBalance,bankAccount.getBalance());
         }
 
     }
@@ -73,6 +74,13 @@ class TestStrictBankAccount {
      */
     @Test
     public void testWithdrawingTooMuch() {
-        fail("To be implemented");
+        double testInitialBalance = bankAccount.getBalance();
+        double testAmount = 100;
+        try{
+            bankAccount.withdraw(mRossi.getUserID(), testAmount);
+            fail ("Error: Money not found");
+        }catch(IllegalArgumentException exception){
+            assertEquals(testInitialBalance,bankAccount.getBalance());
+        }
     }
 }
